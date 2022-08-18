@@ -15,6 +15,13 @@ define('GATEWAY', array(
   'CIELO'=>2,
   'PAGSEGURO'=>3
 ));
+define('RETORNOAPI', array(
+  'APROVADO'=>'00',
+  'ANALISE'=>'01',
+  'ESTORNADO'=>'02',
+  'RECUSADORISCO'=>'03',
+  'RECUSADOSEMCRED'=>'04'
+));
 
 // Conexao com o banco de dados
 $conn = pg_connect("host=localhost port=5432 dbname=ecompleto user=postgres password=test1234");

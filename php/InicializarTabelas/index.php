@@ -111,4 +111,5 @@ INSERT INTO pedidos_pagamentos VALUES
   (103021,98310,1,1,null,null,null,null,null,null);";
 
 $resultado = pg_query($conn, $query);
+exit();
 ?>
