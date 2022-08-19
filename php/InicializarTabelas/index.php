@@ -1,5 +1,6 @@
 <?php
 require '../ConexaoBanco/index.php';
+header("Content-Type: application/json");
 
 // Deleta as tabelas se elas existirem
 $query = "DROP TABLE IF EXISTS clientes;
@@ -10,6 +11,10 @@ $query = "DROP TABLE IF EXISTS clientes;
           DROP TABLE IF EXISTS pedidos;
           DROP TABLE IF EXISTS pedidos_pagamentos;";
 $resultado = pg_query($conn, $query);
+if(!$resultado){
+  echo json_encode(array("status" => false, "mensagem" => "Erro na deleção de tabelas existentes"));
+  exit();
+}
 
 // Cria as tabelas
 $query = "CREATE TABLE IF NOT EXISTS clientes (
@@ -111,5 +116,13 @@ INSERT INTO pedidos_pagamentos VALUES
   (103021,98310,1,1,null,null,null,null,null,null);";
 
 $resultado = pg_query($conn, $query);
+if(!$resultado){
+  echo json_encode(array("status" => false, "mensagem" => "Erro na inserção de dados no banco"));
+  exit();
+}
+
+echo json_encode(array("status" => true, "mensagem" => "Banco de dados (Re)Iniciado!"));
+exit();
+
 exit();
 ?>

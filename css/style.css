@@ -14,18 +14,17 @@ body {
   align-items: center;
   flex-direction: column;
   flex-shrink: 2;
+  background-image: radial-gradient(rgb(30, 36, 42), rgb(40, 48, 56))
 }
 
 .div-funcionamento {
   height: 70%;
   width: 80%;
-  border: solid 5px blue;
 }
 
 .tabela-retorno {
   height: 72%;
   width: 100%;
-  background-color: red;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -34,31 +33,40 @@ body {
 }
 
 .container-grade {
-  width: 70%;
+  overflow: hidden;
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  border-radius: 6px;
+  max-width: 70%;
   max-height: 60%;
   display: grid;
-  padding: 10px;
-  gap: 5px 0px;
-  background-color: brown;
+  gap: 0px 0px;
   grid-template-columns: auto auto auto;
 }
 
 .item-grade {
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 1px solid rgba(0, 0, 0, 0.8);
-  font-size: min(25px, 3.5vw);
+  padding-left: 5px;
+  padding-right: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 2.5vh;
   font-weight: 500;
   text-align: center;
+  color: rgba(187, 187, 187, 0.8);
+  background-color: rgb(43, 51, 51);
 }
 
 .item-headers {
+  background-color: rgba(6, 6, 6, 0.8);
   font-weight: 700;
+  color: white;
 }
 
 .botoes {
   height: 21%;
   width: 100%;
-  background-color: black;
   text-align: center;
   display: flex;
   justify-content: center;
@@ -66,16 +74,48 @@ body {
   text-align: center;
 }
 
+.input-ACTK {
+  outline: none;
+  height: 5vh;
+  width: 32vh;
+  border: none;
+  border-radius: 3px;
+  font-size: 2.5vh;
+}
+
+.input-ACTK::placeholder {
+  transition: transform 1s;
+}
+
+.input-ACTK:focus::placeholder {
+  transform: translateX(-18vh);
+}
+
 .botao-acao {
+  border: none;
+  border-radius: 5px;
+  background-color: purple;
+  color: white;
+  box-shadow: 1px 1px 5px rgb(27, 0, 27);
   width: 30vh;
   height: 10vh;
-  margin-inline: 10px;
+  margin-inline: 2vh;
+  font-size: 2vh;
+  transition: background-color 0.05s;
+}
+
+.botao-acao:hover {
+  cursor: pointer;
+  background-color: rgb(180, 0, 180);
+}
+
+.botao-acao:active {
+  background-color: rgb(76, 8, 76);
 }
 
 .resultado {
   height: 7%;
   width: 100%;
-  background-color: green;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -84,5 +124,16 @@ body {
 
 .resultado span {
   font-size: 2.2vw;
+}
+
+.textoPadrao {
   color: white;
+}
+
+.textoRBom {
+  color: #24dc2d;
+}
+
+.textoRRuim {
+  color: #ed1c1c;
 }

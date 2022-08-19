@@ -1,8 +1,9 @@
 <?php
 require '../ConexaoBanco/index.php';
+$_POST = json_decode(file_get_contents('php://input'), true);
+header("Content-Type: application/json");
 
 $arrayRetorno = [];
-$acessTK = '';
 
 /* Seleciona os pagamentos do banco de dados que estao em 
 aguardo e serao pagas por cartao */
@@ -19,11 +20,15 @@ WHERE p.id_situacao = ".PEDSITUACAO['AGUARDO']."
 AND pp.id_formapagto = ".FORMAPAG['CARTAO']."
 AND lg.id_gateway = ".GATEWAY['PAGCOMPLETO'].";";
 $resultado = pg_query($conn, $query);
+if(pg_num_rows($resultado) == 0){
+  echo json_encode(array("status" => false, "mensagem" => "Banco de dados não possui nenhum valor que precisa de processamento"));
+  exit();
+}
 
 /* Faz as chamadas ao API por cada resultado da query e atualiza
 o banco de dados conforme o necessario */
 while($linha = pg_fetch_object($resultado)){
-  $url = "https://api11.ecompleto.com.br/exams/processTransaction?accessToken=$accessTK";
+  $url = "https://api11.ecompleto.com.br/exams/processTransaction?accessToken=".$_POST['AcessTK'];
 
   $curl = curl_init($url);
   curl_setopt($curl, CURLOPT_URL, $url);
@@ -71,6 +76,11 @@ while($linha = pg_fetch_object($resultado)){
   // Realiza o POST a API e atualiza os dados de situacao e retorno no bd
   $respPost = json_decode(curl_exec($curl));
   curl_close($curl);
+ 
+  if(isset($respPost->error) ? $respPost->error : $respPost->Error){
+    echo json_encode(array("status" => false, "mensagem" => "Falha em uma requisição a API, seu token pode estar inválido!"));
+    exit();
+  }
 
   $query = "UPDATE pedidos_pagamentos SET 
   retorno_intermediador = '$respPost->Message',
@@ -101,7 +111,6 @@ while($linha = pg_fetch_object($resultado)){
                                   'pessoa' => $linha->client_name, 
                                   'situacao' => $respPost->Message));
 }
-header("Content-Type: application/json");
-echo json_encode($arrayRetorno);
+echo json_encode(array("status" => true, "mensagem" => "Sucesso! dados atualizados retornados.", "dados" => $arrayRetorno));
 exit();
 ?>

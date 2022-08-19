@@ -8,21 +8,16 @@
     <div class="div-principal">
       <div class="div-funcionamento">
         <div class="tabela-retorno">
-          <div class="container-grade">
-            <div class="item-grade item-headers">ID Pagamento</div>
-            <div class="item-grade item-headers">Pessoa</div>
-            <div class="item-grade item-headers">Situação</div>
-            <div class="item-grade">4</div>
-            <div class="item-grade">5</div>
-            <div class="item-grade">6</div>
+          <div class="container-grade" id="tabelaResults">
           </div>
         </div>
         <div class="botoes">
+          <input type="text" class="input-ACTK" id="inputACTK" name="fname" placeholder="Access Token">
           <button class="botao-acao" id="botaoPag">Executar processamento de pagamento</button>
           <button class="botao-acao" id="botaoRes">(Re)Inicializar Banco de Dados</button>
         </div>
         <div class="resultado">
-          <span>Erro no sucesso!</span>
+          <span class="textoPadrao" id="mensagemResult"></span>
         </div>
       </div>
     </div>
